@@ -1,0 +1,25 @@
+{
+  "name": "flyingcolours/common-bundle",
+  "type": "symfony-bundle",
+  "description": "Symfony Bundle with commonly used code",
+  "keywords": [ "symfony-bundle" ],
+  "homepage": "https://github.com/FlyingColours/common-bundle",
+  "license": "MIT",
+  "require": {
+    "php": ">=7.1",
+    "symfony/framework-bundle": "~2.3|~3"
+  },
+  "require-dev": {
+    "phpspec/phpspec": "^3",
+    "satooshi/php-coveralls": "^1.0",
+    "henrikbjorn/phpspec-code-coverage": "^3.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "FlyingColours\\CommonBundle\\": "src/"
+    }
+  },
+  "config": {
+    "bin-dir": "bin"
+  }
+}
