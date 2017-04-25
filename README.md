@@ -1,2 +1,4 @@
-# common-bundle
-Common Symfony classes we use throughout the projects
+# Common Symfony classes
+ 
+Common Symfony classes used throughout the projects
+
