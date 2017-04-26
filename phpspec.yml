@@ -8,5 +8,7 @@ extensions:
     blacklist: [ 'spec', 'vendor' ]
     format:
       - clover
+      - html
     output:
       clover: build/logs/clover.xml
+      html: build/coverage
