@@ -7,7 +7,9 @@
   "license": "MIT",
   "require": {
     "php": ">=7.1",
-    "symfony/framework-bundle": "~2.3|~3"
+    "symfony/framework-bundle": "~2.3|~3",
+    "symfony/serializer": "~2.3|~3",
+    "willdurand/negotiation": "^2.2"
   },
   "require-dev": {
     "phpspec/phpspec": "^3",
