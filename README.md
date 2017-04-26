@@ -7,7 +7,7 @@ Common Symfony classes used throughout the projects
 
 ## Components
 
-### Content Negotiation Listener
+### Content Negotiation and Template Resolver Listener
 
 Symfony Event Listener which works out right response content type based on "Accept" header.
 
@@ -22,9 +22,15 @@ services:
 
     content.negotiator:
         class: Negotiation\Negotiator
+        
+    listener.template.resolver:
+        class: FlyingColours\CommonBundle\Listener\TemplateResolverListener
+        arguments: [ "@sensio_framework_extra.view.guesser" ]
+        tags:
+            - { name: kernel.event_listener, event: kernel.controller, method: onKernelController }
     
     listener.content.negotiation:
-        class: AppBundle\EventListener\ContentNegotiationListener
+        class: FlyingColours\CommonBundle\Listener\ContentNegotiationListener
         arguments: [ "%priorities%", "@content.negotiator", "@serializer", "@templating" ]
         tags:
             - { name: kernel.event_listener, event: kernel.view, method: onKernelView }
