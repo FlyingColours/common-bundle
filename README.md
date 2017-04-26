@@ -36,3 +36,25 @@ services:
             - { name: kernel.event_listener, event: kernel.view, method: onKernelView }
 
 ```
+
+### Persistent Memcached
+
+If you ever experienced problem described [here](https://gist.github.com/K-Phoen/4327229#gistcomment-1297369)
+then you want to use this class instead of default Memcached.
+
+```yml
+# app/config/services.yml
+
+services:
+
+    memcached:
+        class: FlyingColours\CommonBundle\Service\PersistentMemcached
+        arguments:
+            persistent_id: "%session_prefix%"
+        calls:
+            - [ addServer, [ "%memcached_host%", "%memcached_port%" ]]
+
+    session.handler.memcached:
+        class:     Symfony\Component\HttpFoundation\Session\Storage\Handler\MemcachedSessionHandler
+        arguments: [ "@memcached", { prefix: "%session_prefix%", expiretime: "%session_expire%" }]
+```
