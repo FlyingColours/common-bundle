@@ -28,11 +28,7 @@ class TemplateResolverListener
 
         if( ! $request->attributes->has('template'))
         {
-            try
-            {
-                $request->attributes->set('template', $this->guesser->guessTemplateName($controller, $request));
-            }
-            catch (\InvalidArgumentException $e) { /** ignore */}
+            $request->attributes->set('template', $this->guesser->guessTemplateName($controller, $request));
         }
     }
 }
