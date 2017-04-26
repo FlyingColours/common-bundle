@@ -15,3 +15,5 @@ cache:
 
 after_script:
     - php bin/coveralls -v
+
+before_install: echo "extension = memcached.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
