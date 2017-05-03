@@ -58,3 +58,19 @@ services:
         class:     Symfony\Component\HttpFoundation\Session\Storage\Handler\MemcachedSessionHandler
         arguments: [ "@memcached", { prefix: "%session_prefix%", expiretime: "%session_expire%" }]
 ```
+
+### CORS Listener
+
+See [this page](https://developer.mozilla.org/en-US/docs/Web/HTTP/Access_control_CORS) for details
+
+```yml
+# app/config/services.yml
+
+services:
+
+    listener.cors.headers:
+        class: FlyingColours\CommonBundle\Listener\CorsHeadersListener
+        tags:
+            - { name: kernel.event_listener, event: kernel.response, method: onKernelResponse }
+
+```
