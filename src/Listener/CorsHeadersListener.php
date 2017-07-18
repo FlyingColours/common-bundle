@@ -15,9 +15,9 @@ class CorsHeadersListener
         $response = $event->getResponse();
 
         $response->headers->set('Access-Control-Allow-Origin', $request->headers->get('Origin'));
-        $response->headers->set('Access-Control-Allow-Headers', 'Content-Type, X-Requested-With, XSRF-TOKEN');
+        $response->headers->set('Access-Control-Allow-Headers', $request->headers->get('Access-Control-Request-Headers'));
         $response->headers->set('Access-Control-Expose-Headers', 'XSRF-TOKEN');
-        $response->headers->set('Access-Control-Allow-Methods', '*');
+        $response->headers->set('Access-Control-Allow-Methods', $request->headers->get('Access-Control-Request-Method'));
         $response->headers->set('Access-Control-Allow-Credentials', 'true');
     }
 
