@@ -2,7 +2,10 @@
 
 namespace FlyingColours\CommonBundle\Listener;
 
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Event\FilterResponseEvent;
+use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 
 class CorsHeadersListener
 {
@@ -16,5 +19,13 @@ class CorsHeadersListener
         $response->headers->set('Access-Control-Expose-Headers', 'XSRF-TOKEN');
         $response->headers->set('Access-Control-Allow-Methods', '*');
         $response->headers->set('Access-Control-Allow-Credentials', 'true');
+    }
+
+    public function onKernelRequest(GetResponseEvent $event)
+    {
+        if($event->getRequest()->isMethod(Request::METHOD_OPTIONS))
+        {
+            $event->setResponse(new Response());
+        }
     }
 }
