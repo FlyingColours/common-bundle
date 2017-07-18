@@ -9,6 +9,7 @@ use Symfony\Component\HttpFoundation\ParameterBag;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Event\FilterResponseEvent;
+use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 
 class CorsHeadersListenerSpec extends ObjectBehavior
 {
@@ -33,5 +34,15 @@ class CorsHeadersListenerSpec extends ObjectBehavior
         $bag->set(Argument::any(), Argument::any())->shouldBeCalled();
 
         $this->onKernelResponse($event);
+    }
+
+    function it_creates_response_for_OPTIONS_requests(GetResponseEvent $event, Request $request)
+    {
+        $event->getRequest()->willReturn($request);
+        $event->setResponse(Argument::any())->shouldBeCalled();
+
+        $request->isMethod(Request::METHOD_OPTIONS)->willReturn(true);
+
+        $this->onKernelRequest($event);
     }
 }
