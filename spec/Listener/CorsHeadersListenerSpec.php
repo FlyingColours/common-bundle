@@ -64,4 +64,25 @@ class CorsHeadersListenerSpec extends ObjectBehavior
 
         $this->onKernelResponse($event);
     }
+    
+    function it_allows_additional_headers_from_consumer(FilterResponseEvent $event, Request $request,
+                                                        Response $response, ParameterBag $bag)
+    {
+        $event->getRequest()->willReturn($request);
+        $event->getResponse()->willReturn($response);
+
+        $request->headers = $bag;
+
+        $response->getStatusCode()->willReturn(200);
+        $response->headers = $bag;
+
+        $bag->get(Argument::any())->willReturn('some value');
+
+        $headers = 'X-Custom-Header,X-Custom-Header-2';
+        $bag->get('Access-Control-Expose-Headers', '')->willReturn($headers);
+        $bag->set('Access-Control-Expose-Headers', 'CSRF-TOKEN,' . $headers)->shouldBeCalled();
+        $bag->set(Argument::any(), Argument::any())->shouldBeCalled();
+
+        $this->onKernelResponse($event);
+    }
 }
