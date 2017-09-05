@@ -18,7 +18,7 @@ class CorsHeadersListener
 
         $response->headers->set('Access-Control-Allow-Origin', $request->headers->get('Origin'));
         $response->headers->set('Access-Control-Allow-Headers', $request->headers->get('Access-Control-Request-Headers'));
-        $response->headers->set('Access-Control-Expose-Headers', join(',', $this->getAccessControl));
+        $response->headers->set('Access-Control-Expose-Headers', join(',', $accessControlExposeHeaders));
         $response->headers->set('Access-Control-Allow-Methods', $request->headers->get('Access-Control-Request-Method'));
         $response->headers->set('Access-Control-Allow-Credentials', 'true');
     }
