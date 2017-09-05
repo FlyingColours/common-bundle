@@ -20,8 +20,11 @@ class CorsHeadersListener
             // expose location in case of 201 response
             $accessControlExposeHeaders[] = 'Location';
         }
+        
+        $additionalAccessControlExposeHeaders = explode(',', $response->headers->get('Access-Control-Expose-Headers', ''));
 
-        $accessControlExposeHeaders = $accessControlExposeHeaders + explode(',', $response->headers->get('Access-Control-Expose-Headers', ''));
+        array_push($accessControlExposeHeaders, ...$additionalAccessControlExposeHeaders);
+        array_unique($accessControlExposeHeaders);
 
         $response->headers->set('Access-Control-Allow-Origin', $request->headers->get('Origin'));
         $response->headers->set('Access-Control-Allow-Headers', $request->headers->get('Access-Control-Request-Headers'));
