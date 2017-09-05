@@ -31,6 +31,7 @@ class CorsHeadersListenerSpec extends ObjectBehavior
         $response->headers = $bag;
 
         $bag->get(Argument::any())->willReturn('some value');
+        $bag->get(Argument::any(), Argument::any())->willReturn('');
         $bag->set(Argument::any(), Argument::any())->shouldBeCalled();
 
         $this->onKernelResponse($event);
