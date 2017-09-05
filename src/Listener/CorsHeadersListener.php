@@ -14,17 +14,14 @@ class CorsHeadersListener
         $request = $event->getRequest();
         $response = $event->getResponse();
 
-        $accessControlExposeHeaders = [ 'XSRF-TOKEN' ];
+        $accessControlExposeHeaders = [ 'CSRF-TOKEN' ];
 
         if ($response->getStatusCode() === 201) {
             // expose location in case of 201 response
             $accessControlExposeHeaders[] = 'Location';
         }
 
-        $accessControlExposeHeaders = array_merge(
-            $accessControlExposeHeaders,
-            explode(',', $response->headers->get('Access-Control-Expose-Headers', ''))
-        );
+        $accessControlExposeHeaders = $accessControlExposeHeaders + explode(',', $response->headers->get('Access-Control-Expose-Headers', ''));
 
         $response->headers->set('Access-Control-Allow-Origin', $request->headers->get('Origin'));
         $response->headers->set('Access-Control-Allow-Headers', $request->headers->get('Access-Control-Request-Headers'));

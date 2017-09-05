@@ -46,4 +46,22 @@ class CorsHeadersListenerSpec extends ObjectBehavior
 
         $this->onKernelRequest($event);
     }
+
+    function it_adds_allowed_location_header_for_201_responses(FilterResponseEvent $event, Request $request, Response $response, ParameterBag $bag)
+    {
+        $event->getRequest()->willReturn($request);
+        $event->getResponse()->willReturn($response);
+        
+        $request->headers = $bag;
+
+        $response->getStatusCode()->willReturn(201);
+        $response->headers = $bag;
+
+        $bag->get(Argument::any())->willReturn('some value');
+        $bag->get(Argument::any(), '')->willReturn('');
+        $bag->set('Access-Control-Expose-Headers', 'CSRF-TOKEN,Location')->shouldBeCalled();
+        $bag->set(Argument::any(), Argument::any())->shouldBeCalled();
+
+        $this->onKernelResponse($event);
+    }
 }
