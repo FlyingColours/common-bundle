@@ -1,6 +1,6 @@
 # Common Symfony classes
 
-version 0.1.3
+version 0.1.4
  
 Common Symfony classes used throughout the projects
 
