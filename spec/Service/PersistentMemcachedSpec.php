@@ -5,7 +5,6 @@ namespace spec\FlyingColours\CommonBundle\Service;
 use FlyingColours\CommonBundle\Service\PersistentMemcached;
 use Memcached;
 use PhpSpec\ObjectBehavior;
-use Prophecy\Argument;
 
 class PersistentMemcachedSpec extends ObjectBehavior
 {

@@ -3,12 +3,14 @@ suites:
         namespace: FlyingColours\CommonBundle
         psr4_prefix: FlyingColours\CommonBundle
 
+
 extensions:
-  PhpSpecCodeCoverage\CodeCoverageExtension:
+  LeanPHP\PhpSpec\CodeCoverage\CodeCoverageExtension:
     blacklist: [ 'spec', 'vendor' ]
     format:
       - clover
       - html
+
     output:
       clover: build/logs/clover.xml
       html: build/coverage
