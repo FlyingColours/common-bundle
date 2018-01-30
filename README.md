@@ -1,9 +1,8 @@
 # Common Symfony classes
 
-version 0.1.4
- 
 Common Symfony classes used throughout the projects
 
+[![Version](https://img.shields.io/packagist/v/FlyingColours/common-bundle.svg?style=flat-square)](https://packagist.org/packages/FlyingColours/common-bundle)
 [![Build Status](https://travis-ci.org/FlyingColours/common-bundle.svg?branch=develop)](https://travis-ci.org/FlyingColours/common-bundle)
 [![Coverage Status](https://coveralls.io/repos/github/FlyingColours/common-bundle/badge.svg?branch=develop)](https://coveralls.io/github/FlyingColours/common-bundle?branch=develop)
 
