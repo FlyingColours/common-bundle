@@ -1,7 +1,5 @@
 # Common Symfony classes
 
-version 0.1.3
- 
 Common Symfony classes used throughout the projects
 
 [![Version](https://img.shields.io/packagist/v/FlyingColours/common-bundle.svg?style=flat-square)](https://packagist.org/packages/FlyingColours/common-bundle)
