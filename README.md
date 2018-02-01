@@ -38,6 +38,17 @@ services:
 
 ```
 
+If you're using Symfony 3.4.1+, add this:
+
+```yaml
+# app/config/config.yml
+
+framework:
+    templating:
+        engines: ['twig']
+
+```
+
 ### Persistent Memcached
 
 If you ever experienced problem described [here](https://gist.github.com/K-Phoen/4327229#gistcomment-1297369)
