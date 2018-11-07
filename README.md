@@ -6,6 +6,12 @@ Common Symfony classes used throughout the projects
 [![Build Status](https://travis-ci.org/FlyingColours/common-bundle.svg?branch=develop)](https://travis-ci.org/FlyingColours/common-bundle)
 [![Coverage Status](https://coveralls.io/repos/github/FlyingColours/common-bundle/badge.svg?branch=develop)](https://coveralls.io/github/FlyingColours/common-bundle?branch=develop)
 
+## Installation
+
+```bash
+composer require flyingcolours/common-bundle "^0.1.7"
+```
+
 ## Components
 
 ### Content Negotiation and Template Resolver Listener
