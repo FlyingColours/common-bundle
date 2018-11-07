@@ -5,6 +5,7 @@ namespace spec\FlyingColours\CommonBundle\Service;
 use FlyingColours\CommonBundle\Service\PersistentMemcached;
 use Memcached;
 use PhpSpec\ObjectBehavior;
+use Psr\SimpleCache\CacheInterface;
 
 class PersistentMemcachedSpec extends ObjectBehavior
 {
@@ -12,6 +13,7 @@ class PersistentMemcachedSpec extends ObjectBehavior
     {
         $this->shouldHaveType(PersistentMemcached::class);
         $this->shouldHaveType(Memcached::class);
+        $this->shouldHaveType(CacheInterface::class);
     }
 
     function it_makes_sure_it_does_not_add_server_when_its_already_added()
@@ -24,5 +26,14 @@ class PersistentMemcachedSpec extends ObjectBehavior
     {
         $this->addServer('localhost', 11211)->shouldReturn(true);
         $this->addServer('localhost', 11211)->shouldReturn(false);
+    }
+
+    function it_implements_CacheInterface()
+    {
+        $this->clear();
+        $this->getMultiple([]);
+        $this->setMultiple([], 0);
+        $this->deleteMultiple([]);
+        $this->has('something')->shouldReturn(false);
     }
 }
