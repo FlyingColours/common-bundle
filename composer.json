@@ -7,10 +7,10 @@
   "license": "MIT",
   "require": {
     "php": ">=7.1",
-    "symfony/framework-bundle": "~2.3|~3",
-    "symfony/serializer": "~2.3|~3",
+    "symfony/framework-bundle": "~2.3|~3|~4",
+    "symfony/serializer": "~2.3|~3|~4",
     "willdurand/negotiation": "^2.2",
-    "symfony/templating": "~2.3|~3",
+    "symfony/templating": "~2.3|~3|~4",
     "sensio/framework-extra-bundle": "~3|~4|~5"
   },
   "require-dev": {
