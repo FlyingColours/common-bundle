@@ -9,7 +9,7 @@ Common Symfony classes used throughout the projects
 ## Installation
 
 ```bash
-composer require flyingcolours/common-bundle "^0.1.7"
+composer require flyingcolours/common-bundle "^0.1.8"
 ```
 
 ## Components
