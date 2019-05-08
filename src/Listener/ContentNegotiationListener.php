@@ -49,10 +49,15 @@ class ContentNegotiationListener
             /** @var Accept $accept */
             $accept = $this->negotiator->getBest($request->headers->get('Accept'), $this->priorities);
 
+            $groups = interface_exists('Knp\Component\Pager\Pagination\PaginationInterface') && $result instanceof \Knp\Component\Pager\Pagination\PaginationInterface
+                ? [ 'api_list']
+                : [ 'api' ]
+            ;
+
             switch ($accept->getType())
             {
                 case 'application/xml':
-                    $response = new Response($this->serializer->serialize($result, 'xml', ['groups' => ['api']]));
+                    $response = new Response($this->serializer->serialize($result, 'xml', [ 'groups' => $groups ]));
                     break;
 
                 case 'text/html':
@@ -60,7 +65,7 @@ class ContentNegotiationListener
                     break;
 
                 default:
-                    $response = new Response($this->serializer->serialize($result, 'json', ['groups' => ['api']]));
+                    $response = new Response($this->serializer->serialize($result, 'json', [ 'groups' => $groups ]));
             }
 
             $response->headers->add(['Content-Type' => $accept->getType()]);
