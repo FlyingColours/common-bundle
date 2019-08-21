@@ -109,3 +109,9 @@ services:
 
 ```
 
+To use in memory cache just use it in same way as memcached implementation:
+```
+services:
+    cache.in_memory:
+        class: FlyingColours\CommonBundle\Service\InMemoryCache
+```
