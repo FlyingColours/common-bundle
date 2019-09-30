@@ -9,7 +9,7 @@ Common Symfony classes used throughout the projects
 ## Installation
 
 ```bash
-composer require flyingcolours/common-bundle "^0.2"
+composer require flyingcolours/common-bundle "^0.2.0"
 ```
 
 This version works with Symfony 4.3, for previous version please check [previous](https://github.com/FlyingColours/common-bundle/blob/0.1.10/README.md) versions.
