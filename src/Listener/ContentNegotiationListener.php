@@ -4,10 +4,10 @@ namespace FlyingColours\CommonBundle\Listener;
 
 use Negotiation\Accept;
 use Negotiation\Negotiator;
-use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\Event\GetResponseForControllerResultEvent;
+use Symfony\Component\HttpKernel\Event\ViewEvent;
 use Symfony\Component\Serializer\SerializerInterface;
+use Twig\Environment;
 
 class ContentNegotiationListener
 {
@@ -20,8 +20,8 @@ class ContentNegotiationListener
     /** @var SerializerInterface */
     private $serializer;
 
-    /** @var EngineInterface */
-    private $templating;
+    /** @var Environment */
+    private $twig;
 
     /**
      * ContentNegotiationListener constructor.
@@ -29,17 +29,17 @@ class ContentNegotiationListener
      * @param array $priorities
      * @param Negotiator $negotiator
      * @param SerializerInterface $serializer
-     * @param EngineInterface $templating
+     * @param Environment $twig
      */
-    public function __construct(array $priorities, Negotiator $negotiator, SerializerInterface $serializer, EngineInterface $templating)
+    public function __construct(array $priorities, Negotiator $negotiator, SerializerInterface $serializer, Environment $twig)
     {
         $this->priorities = $priorities;
         $this->negotiator = $negotiator;
         $this->serializer = $serializer;
-        $this->templating = $templating;
+        $this->twig = $twig;
     }
 
-    public function onKernelView(GetResponseForControllerResultEvent $event)
+    public function onKernelView(ViewEvent $event)
     {
         $request = $event->getRequest();
         $result = $event->getControllerResult();
@@ -61,7 +61,7 @@ class ContentNegotiationListener
                     break;
 
                 case 'text/html':
-                    $response = $this->templating->renderResponse($request->attributes->get('template'), $result);
+                    $response = new Response($this->twig->render($request->attributes->get('template'), $result));
                     break;
 
                 default:

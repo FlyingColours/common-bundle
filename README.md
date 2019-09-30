@@ -9,8 +9,10 @@ Common Symfony classes used throughout the projects
 ## Installation
 
 ```bash
-composer require flyingcolours/common-bundle "^0.1.10"
+composer require flyingcolours/common-bundle "^0.2.0"
 ```
+
+This version works with Symfony 4.3, for previous version please check [previous](https://github.com/FlyingColours/common-bundle/blob/0.1.10/README.md) versions.
 
 ## Components
 
@@ -26,9 +28,6 @@ parameters:
     priorities: [ 'application/json', 'text/html' ]
 
 services:
-
-    content.negotiator:
-        class: Negotiation\Negotiator
         
     listener.template.resolver:
         class: FlyingColours\CommonBundle\Listener\TemplateResolverListener
@@ -38,20 +37,10 @@ services:
     
     listener.content.negotiation:
         class: FlyingColours\CommonBundle\Listener\ContentNegotiationListener
-        arguments: [ "%priorities%", "@content.negotiator", "@serializer", "@templating" ]
+        arguments:
+            $priorities: "%priorities%"
         tags:
             - { name: kernel.event_listener, event: kernel.view, method: onKernelView }
-
-```
-
-If you're using Symfony 3.4.1+, add this:
-
-```yaml
-# app/config/config.yml
-
-framework:
-    templating:
-        engines: ['twig']
 
 ```
 
@@ -110,6 +99,7 @@ services:
 ```
 
 To use in memory cache just use it in same way as memcached implementation:
+
 ```
 services:
     cache.in_memory:

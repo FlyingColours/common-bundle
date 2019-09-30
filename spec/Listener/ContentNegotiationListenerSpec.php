@@ -7,16 +7,16 @@ use Negotiation\BaseAccept;
 use Negotiation\Negotiator;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
-use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
 use Symfony\Component\HttpFoundation\ParameterBag;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\Event\GetResponseForControllerResultEvent;
+use Symfony\Component\HttpKernel\Event\ViewEvent;
 use Symfony\Component\Serializer\SerializerInterface;
+use Twig\Environment;
 
 class ContentNegotiationListenerSpec extends ObjectBehavior
 {
-    function let(Negotiator $negotiator, SerializerInterface $serializer, EngineInterface $engine)
+    function let(Negotiator $negotiator, SerializerInterface $serializer, Environment $engine)
     {
         $this->beConstructedWith($priorities = ['application/json'], $negotiator, $serializer, $engine);
     }
@@ -27,14 +27,14 @@ class ContentNegotiationListenerSpec extends ObjectBehavior
     }
 
     function it_can_work_out_which_format_use_in_output(
-        GetResponseForControllerResultEvent $event,
+        ViewEvent $event,
         Request $request,
         Response $response,
         ParameterBag $bag,
         Negotiator $negotiator,
         BaseAccept $accept,
         SerializerInterface $serializer,
-        EngineInterface $engine
+        Environment $engine
     )
     {
         $event->getControllerResult()->willReturn([]);
@@ -60,10 +60,9 @@ class ContentNegotiationListenerSpec extends ObjectBehavior
         $bag->get('Accept')->willReturn('text/html,application/xhtml+xml');
         $bag->get('template')->shouldBeCalled();
 
-        $engine->renderResponse(Argument::any(), Argument::any())->willReturn($response);
+        $engine->render(Argument::any(), Argument::any())->shouldBeCalled();
 
         $response->headers = $bag;
-        $bag->add(Argument::any())->shouldBeCalled();
 
         $accept->getType()->willReturn('text/html');
 
